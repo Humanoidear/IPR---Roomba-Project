@@ -19,7 +19,7 @@ void printMatrix(int matrix[SIZE][SIZE], double previousPositions[100], int tota
                 sprintf(str, "%.2lf", previousPositions[((i / SIZE) - 1) * 5 + (g)]);
                 int a = atoi(strtok(str, "."));
                 int b = atoi(strtok(NULL, "."));
-                printf(" | \033[0;33m%02i\033[0;37m - x:%02i y:%02i/ %i", ((i / SIZE) - 1) * 5 + (g), a, b, totalCleanDecison[((i / SIZE) - 1) * 5 + (g)]);
+                printf(" | \033[0;33m%03i\033[0;37m - x:%02i y:%02i/ %i", ((i / SIZE) - 1) * 5 + (g), a, b, totalCleanDecison[((i / SIZE) - 1) * 5 + (g)]);
             }
             printf("\n");
         }
@@ -30,11 +30,11 @@ void printMatrix(int matrix[SIZE][SIZE], double previousPositions[100], int tota
 
         if (matrix[i / SIZE][i % SIZE] == -1) // if the current position is a wall, print a wall
         {
-            printf("\033[0;33m🟧\033[0;37m");
+            printf("🟧");
         }
         else if (matrix[i / SIZE][i % SIZE] == 6) // if the current position is the roomba, print the roomba
         {
-            printf("\033[0;34m🤖\033[0;37m");
+            printf("🤖");
         }
         else if (matrix[i / SIZE][i % SIZE] > 0) // if the current position is trash, print the trash
         {
@@ -59,7 +59,7 @@ void printMatrix(int matrix[SIZE][SIZE], double previousPositions[100], int tota
             printf("  ");
         }
     }
-    printf("\n©2023 - The cum messiahs \n"); // print credits
+    printf("\n©2023 - Alejandro González, Luca Amorotti, Javier Veyrat \n"); // print credits
 }
 
 void moveEntity(int (*matrix)[SIZE][SIZE], int (*currentPos)[2], char direction, int *nextPos, int *cleanDecision)
@@ -170,11 +170,12 @@ int main(int argc, char *argv[])
     int currentPos[2] = {1, 1}; //current position of the roomba
     int isClean = 0; // check whether the roomba has cleaned all the trash
     int nextPos = 0; // store amount of trash on current square occupied by roomba
+    int turnCount = 0; // count the amount of turns the roomba has taken
     int prevSize = 0;
-    double previousPositions[100]; // array to store 100 previous positions of the roomba
+    double previousPositions[100000]; // array to store 100000 previous positions of the roomba
     char tempString[50]; // temporary string to store previous positions
     int cleanDecision;
-    int totalCleanDecison[100]; // array to store 100 clean decisions
+    int totalCleanDecison[100000]; // array to store 100000 clean decisions
     srand(time(NULL)); // initialize random seed
 
     system("clear"); // clear the terminal
@@ -197,7 +198,7 @@ int main(int argc, char *argv[])
         matrix[3][3] = -1; // place a wall on (3,3)
     }
 
-    for (int i = 0; i < 100; i++) // clear garbage data on the array
+    for (int i = 0; i < 100000; i++) // clear garbage data on the array
     {
         previousPositions[i] = 0.0;
         totalCleanDecison[i] = 0;
@@ -222,15 +223,16 @@ int main(int argc, char *argv[])
         moveEntity(&matrix, &currentPos, direction, &nextPos, &cleanDecision); // move the roomba and update the matrix
 
         // Hacky code to store the positions on 1 array position
-        sprintf(tempString, "%i.%i", currentPos[1], currentPos[0]); // copy both positions to a string
-        if (prevSize <= 100) // prevent array overflow
+        sprintf(tempString, "%i.%lf", currentPos[1], currentPos[0]*0.1); // copy both positions to a string
+        if (prevSize <= 100000) // prevent array overflow
         {
             previousPositions[prevSize] = atof(tempString); // convert string to double and store it on the array
             totalCleanDecison[prevSize] = cleanDecision;
             prevSize++;
         }
 
-        printf("\033[34mRoomba data:\033[0m x:%02d y:%02d - \033[34mCurrently on top of trash:\033[0m %c - \033[34mTrash-o-meter:\033[0m %i\n\n", currentPos[1], currentPos[0], nextPos > 0 ? 'Y' : 'N', cleanDecision); // show data about the roomba
+        printf("\033[34m(Movements: %i) Roomba data:\033[0m x:%02d y:%02d - \033[34mCurrently on top of trash:\033[0m %c - \033[34mTrash-o-meter:\033[0m %i\n\n", turnCount, currentPos[1], currentPos[0], nextPos > 0 ? 'Y' : 'N', cleanDecision); // show data about the roomba
+        turnCount++;
     } while (isClean == 0);
 
     return 0;
