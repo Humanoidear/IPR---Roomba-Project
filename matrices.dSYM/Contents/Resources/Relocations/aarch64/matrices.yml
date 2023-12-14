@@ -2,8 +2,8 @@
 triple:          'arm64-apple-darwin'
 binary-path:     '/Users/alejandrogonzalez/Desktop/WebNew/IPR---Roomba-Project/matrices'
 relocations:
-  - { offsetInCU: 0x26, offset: 0x26, size: 0x8, addend: 0x0, symName: _printMatrix, symObjAddr: 0x0, symBinAddr: 0x100002D3C, symSize: 0x3F8 }
-  - { offsetInCU: 0x41, offset: 0x41, size: 0x8, addend: 0x0, symName: _printMatrix, symObjAddr: 0x0, symBinAddr: 0x100002D3C, symSize: 0x3F8 }
-  - { offsetInCU: 0xF8, offset: 0xF8, size: 0x8, addend: 0x0, symName: _moveEntity, symObjAddr: 0x408, symBinAddr: 0x100003144, symSize: 0x608 }
-  - { offsetInCU: 0x154, offset: 0x154, size: 0x8, addend: 0x0, symName: _main, symObjAddr: 0xA6C, symBinAddr: 0x1000037A8, symSize: 0x548 }
+  - { offsetInCU: 0x26, offset: 0x26, size: 0x8, addend: 0x0, symName: _printMatrix, symObjAddr: 0x0, symBinAddr: 0x100002D34, symSize: 0x3F8 }
+  - { offsetInCU: 0x41, offset: 0x41, size: 0x8, addend: 0x0, symName: _printMatrix, symObjAddr: 0x0, symBinAddr: 0x100002D34, symSize: 0x3F8 }
+  - { offsetInCU: 0xF8, offset: 0xF8, size: 0x8, addend: 0x0, symName: _moveEntity, symObjAddr: 0x408, symBinAddr: 0x10000313C, symSize: 0x608 }
+  - { offsetInCU: 0x154, offset: 0x154, size: 0x8, addend: 0x0, symName: _main, symObjAddr: 0xA6C, symBinAddr: 0x1000037A0, symSize: 0x548 }
 ...
